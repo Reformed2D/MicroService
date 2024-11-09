@@ -1,0 +1,106 @@
+/* stats.component.scss */
+
+/* Upload section styles */
+.upload-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Modern button styles */
+  .modern-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff; /* Blue color, can be customized */
+    color: #ffffff; /* White text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+  }
+  
+  /* Paragraphs section styles */
+  .paragraphs-section {
+    margin-top: 30px;
+  }
+  
+  /* Modern table container styles */
+  .modern-table-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  /* Modern table styles */
+  .modern-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .modern-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  /* Tokenization section styles */
+  .tokenization-section {
+    margin-top: 40px;
+  }
+  
+  /* Token chips container styles */
+  .token-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  /* Token label styles */
+  .token-label {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Token color classes */
+  .token-green {
+    background-color: #28a745; /* Green color for tokens */
+    color: #ffffff;
+  }
+  
+  .token-blue {
+    background-color: #007bff; /* Blue color for tokens */
+    color: #ffffff;
+  }
+  
+  .token-orange {
+    background-color: #ffc107; /* Orange color for tokens */
+    color: #ffffff;
+  }
+  
+  .token-purple {
+    background-color: #6f42c1; /* Purple color for tokens */
+    color: #ffffff;
+  }
+  
+  /* Chart section styles */
+  .chart-section {
+    margin-top: 40px;
+  }
+  
+  /* Modern canvas styles */
+  .modern-canvas {
+    width: 100%;
+    max-width: 600px; /* Limit canvas width for responsiveness */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  

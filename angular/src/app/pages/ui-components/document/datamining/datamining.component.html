@@ -1,0 +1,62 @@
+<div><form (ngSubmit)="submitForm(dataForm)" #dataForm="ngForm">
+  <div class="form-group">
+    <label for="nom">Nom:</label>
+    <input type="text" id="nom" name="nom" ngModel class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="prenom">Prénom:</label>
+    <input type="text" id="prenom" name="prenom" ngModel class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="code_section">Code Section:</label>
+    <input type="text" id="code_section" name="code_section" ngModel class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="date_etat">Date Etat:</label>
+    <input type="text" id="date_etat" name="date_etat" ngModel class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+  <div *ngIf="predictions && getObjectKeys(predictions).length > 0">
+    <h2>Predictions</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th *ngFor="let modelName of modelNames">{{ modelName }}</th>
+          <th>True Etat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let key of getObjectKeys(predictions)">
+          <td>{{ key }}</td>
+          <td *ngFor="let modelName of modelNames">{{ predictions[key][modelName] }}</td>
+          <td>{{ predictions[key]['True_etat'] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <canvas id="barCanvas" width="400" height="400"></canvas>
+  </div>
+
+  <div>
+    <h2>Scatter Chart</h2>
+    <canvas id="scatterCanvas" width="400" height="400"></canvas>
+  </div>
+  <div>
+    <h2>SVM Chart</h2>
+    <img src="http://127.0.0.1:5000/svm_plot.png" alt="SVM Plot">
+  </div>
+
+  <div>
+    <h2>KNN Chart</h2>
+    <img src="http://127.0.0.1:5000/knn_plot.png" alt="SVM Plot">
+  </div>
+  <div>
+    <h2>RFE Chart</h2>
+    <img src="http://127.0.0.1:5000/random_forest_rfe.png" alt="SVM Plot">
+  </div>
+</div>
