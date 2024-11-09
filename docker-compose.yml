@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  eureka:
+    build:
+      context: ./Eureka
+    ports:
+      - "8761:8761"
+
+  gateway:
+    build:
+      context: ./Gateway
+    ports:
+      - "8222:8222"
+    depends_on:
+      - eureka
+  complaints:
+    build:
+      context: ./Complaints
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+
