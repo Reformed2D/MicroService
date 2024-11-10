@@ -1,0 +1,7 @@
+com\internship\Controller\InternshipController.class
+com\internship\Entities\TypeInternship.class
+com\internship\Service\InternshipServiceImpl.class
+com\internship\InternshipApplication.class
+com\internship\Repository\InternshipRepository.class
+com\internship\Entities\Internship.class
+com\internship\Service\InternshipService.class
