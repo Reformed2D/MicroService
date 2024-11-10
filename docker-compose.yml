@@ -7,6 +7,7 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: mydatadefence
+      MYSQL_ROOT_HOST: '%'
     ports:
       - "3306:3306"
     networks:
@@ -18,7 +19,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    command: --default-authentication-plugin=mysql_native_password
+      start_period: 30s
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   eureka-server:
     image: msdefence-eureka-server:latest
@@ -35,8 +37,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8762
+    restart: unless-stopped
 
-  defence_service:
+  defence-service:
     image: msdefence-defence_service:latest
     container_name: defence-service
     build:
@@ -47,17 +53,27 @@ services:
     networks:
       - ms_network
     depends_on:
-      eureka-server:
-        condition: service_healthy
       mysql:
+        condition: service_healthy
+      eureka-server:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/mydatadefence?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
+      - SERVER_PORT=8081
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/mydatadefence?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8762/eureka/
-    restart: unless-stopped
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   api-gateway:
     image: msdefence-api-gateway:latest
@@ -72,8 +88,12 @@ services:
     depends_on:
       eureka-server:
         condition: service_healthy
+      defence-service:
+        condition: service_healthy
     environment:
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8762/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8085
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
     restart: unless-stopped
 
 networks:
