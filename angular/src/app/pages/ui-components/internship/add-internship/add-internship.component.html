@@ -77,7 +77,7 @@
                     <td>{{ internship.degreeStageO }}</td>
                     <td>{{ internship.type }}</td>
                     <td>
-                        <button type="button" class="btn btn-danger" (click)="deleteInternship(i)">Delete</button>
+                        <button type="button" class="btn btn-danger" (click)="deleteInternship(internship.id)">Delete</button>
                         <!-- Bouton de modification -->
                         <button type="button" class="btn btn-primary" (click)="selectInternshipForModification(internship)">Modify</button>
                     </td>
