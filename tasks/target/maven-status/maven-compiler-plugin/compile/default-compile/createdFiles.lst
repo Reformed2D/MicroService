@@ -1,5 +1,4 @@
 com\micro\tasks\Config\AutoIncrementUtil.class
-com\micro\tasks\Controller\InternshipController.class
 com\micro\tasks\Services\IProjectImp.class
 com\micro\tasks\Entities\Offer$OfferBuilder.class
 com\micro\tasks\Entities\Task.class
@@ -19,7 +18,6 @@ com\micro\tasks\Entities\Sequence.class
 com\micro\tasks\Config\DatabaseInitializer.class
 com\micro\tasks\Entities\Response.class
 com\micro\tasks\Repositories\NotificationRepository.class
-com\micro\tasks\Controller\DocumentsController.class
 com\micro\tasks\Entities\SequenceCounter.class
 com\micro\tasks\Services\SequenceGeneratorService.class
 com\micro\tasks\Entities\Complaint.class

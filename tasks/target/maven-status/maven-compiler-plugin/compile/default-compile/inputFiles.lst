@@ -20,7 +20,6 @@ C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\Messag
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\TaskRequestModel.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Config\WebSocketConfig.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\models\ChatMessageModel.java
-C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Controller\DocumentsController.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Config\AutoIncrementUtil.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\TypeInternship.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\Evaluation.java
@@ -28,7 +27,6 @@ C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\Inters
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Repositories\ChatMessageRepository.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Controller\MonitoringNoteController.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\Company.java
-C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Controller\InternshipController.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Repositories\MonitoringNoteRepository.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Entities\Type.java
 C:\Users\ahmed\Desktop\Tasks\tasks\src\main\java\com\micro\tasks\Repositories\MonitoringRepository.java
