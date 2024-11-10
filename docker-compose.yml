@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  eureka:
+    image: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  tasks:
+    build:
+      context: .
+    image: tasks
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+      - eureka
+    environment:
+      SPRING_APPLICATION_NAME: TASKS
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/test
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      retries: 3
+      timeout: 10s
+      start_period: 10s
+
+  getaway:
+    build:
+      context: ./getaway
+    image: getaway
+    ports:
+      - "8222:8222"
+    depends_on:
+      - eureka
+      - tasks
+    environment:
+      SPRING_APPLICATION_NAME: gateway-service
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8222/actuator/health"]
+      interval: 30s
+      retries: 3
+      timeout: 10s
+      start_period: 10s
+
+networks:
+  app-network:
+    driver: bridge
