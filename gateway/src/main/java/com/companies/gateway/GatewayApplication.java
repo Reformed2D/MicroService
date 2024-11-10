@@ -34,6 +34,9 @@ public class GatewayApplication {
                 .route("documents", r -> r
                         .path("/api/documents/**")
                         .uri("http://localhost:8084"))
+                .route("internship", r -> r
+                        .path("/api/internships/**")
+                        .uri("http://localhost:8086"))
                 .build();
     }
 }
