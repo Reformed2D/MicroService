@@ -21,7 +21,6 @@ public class GatewayApplication {
                 .route("task-service", r -> r
                         .path("/api/tasks/**")
                         .uri("http://localhost:8081"))
-
                 .route("company", r -> r
                         .path("/api/company/**")
                         .uri("http://localhost:8082"))
@@ -37,6 +36,9 @@ public class GatewayApplication {
                 .route("internship", r -> r
                         .path("/api/internships/**")
                         .uri("http://localhost:8086"))
+                .route("defences", r -> r
+                        .path("/api/defences/**")
+                        .uri("http://localhost:8087"))
                 .build();
     }
 }

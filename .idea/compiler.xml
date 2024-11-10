@@ -9,9 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Getaway" />
         <module name="companies" />
+        <module name="defence" />
         <module name="document" />
         <module name="complaints" />
         <module name="Eureka" />
+        <module name="Internship" />
         <module name="tasks" />
         <module name="gateway" />
       </profile>
@@ -25,9 +27,11 @@
       <module name="Complaints" options="-parameters" />
       <module name="Eureka" options="-parameters" />
       <module name="Getaway" options="-parameters" />
+      <module name="Internship" options="-parameters" />
       <module name="PIPROJECT" options="-parameters" />
       <module name="companies" options="-parameters" />
       <module name="complaints" options="-parameters" />
+      <module name="defence" options="-parameters" />
       <module name="document" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="tasks" options="-parameters" />

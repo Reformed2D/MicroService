@@ -172,21 +172,51 @@ services:
       timeout: 10s
       start_period: 10s
 
-  getaway:
+  defence:
     build:
-      context: ./getaway
-    image: getaway
+      context: .
+    image: defence
     ports:
-      - "8222:8222"
+      - "8087:8087"
     depends_on:
-      eureka:
-        condition: service_started
-      tasks:
-        condition: service_healthy
-      companies:
-        condition: service_healthy
-      complaints:
-        condition: service_healthy
+      - mysql
+      - eureka
+    environment:
+      SPRING_APPLICATION_NAME: defence
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/defence?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8087/actuator/health" ]
+      interval: 30s
+      retries: 3
+      timeout: 10s
+      start_period: 10s
+
+  gateway:
+    build:
+      context: .
+    image: gateway
+    ports:
+      - "8224:8224"
+    depends_on:
+      - document
+      - eureka
+      - Internship
+      - defence
+      - companies
+      - complaints
+      - mongo
+      - mysql
+      - tasks
+
     environment:
       SPRING_APPLICATION_NAME: gateway-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
@@ -196,7 +226,7 @@ services:
       - app-network
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8222/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:8224/actuator/health" ]
       interval: 30s
       retries: 3
       timeout: 10s
