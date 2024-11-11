@@ -1,8 +1,6 @@
 package com.micro.tasks.Controller;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +14,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private IProjectService iProjectService;
-    @Autowired
-    private AutoIncrementUtil autoIncrementUtil;
-    @Autowired
-    UserRepository userRepository;
+    private final IProjectService iProjectService;
+    private final AutoIncrementUtil autoIncrementUtil;
+    private final UserRepository userRepository;
 
     // Get all users
     @GetMapping
@@ -34,25 +28,27 @@ public class UserController {
     }
 
     // Get user by id
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         Optional<User> user = iProjectService.getUserById(id);
-        return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     // Create user
     @PostMapping
-    public User addChambre(@RequestBody User user) {
-        int id = autoIncrementUtil.getNextSequence("votre_sequence");
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        int id = autoIncrementUtil.getNextSequence("user_sequence");
         user.setId(id);
-        return iProjectService.createUser(user);
+        User createdUser = iProjectService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     // Update user
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateTask(@PathVariable("id") int id, @RequestBody User updatedUser) {
-        User userExist = userRepository.findById(id).orElse(null);
-        if (userExist != null) {
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User updatedUser) {
+        Optional<User> userExist = userRepository.findById(id);
+        if (userExist.isPresent()) {
             updatedUser.setId(id);
             User savedUser = userRepository.save(updatedUser);
             return new ResponseEntity<>(savedUser, HttpStatus.OK);
@@ -61,9 +57,8 @@ public class UserController {
         }
     }
 
-
     // Delete user
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         iProjectService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

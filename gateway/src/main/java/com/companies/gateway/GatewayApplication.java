@@ -24,6 +24,9 @@ public class GatewayApplication {
                 .route("company", r -> r
                         .path("/api/company/**")
                         .uri("http://localhost:8082"))
+                .route("company", r -> r
+                        .path("/api/offers/**")
+                        .uri("http://localhost:8082"))
                 .route("offers", r -> r
                         .path("/api/offer/**")
                         .uri("http://localhost:8082"))
@@ -33,12 +36,18 @@ public class GatewayApplication {
                 .route("documents", r -> r
                         .path("/api/documents/**")
                         .uri("http://localhost:8084"))
+                .route("documents", r -> r
+                        .path("/api/text-analysis/**")
+                        .uri("http://localhost:8084"))
                 .route("internship", r -> r
                         .path("/api/internships/**")
                         .uri("http://localhost:8086"))
                 .route("defences", r -> r
                         .path("/api/defences/**")
                         .uri("http://localhost:8087"))
+                .route("defences", r -> r
+                        .path("/api/**")
+                        .uri("http://localhost:8081"))
                 .build();
     }
 }

@@ -109,29 +109,5 @@ public class IProjectImp implements IProjectService {
     }
 
     /***************************************************/
-    /*
-    @Override
-    public List<Documents> getAllDocuments() {
-        return documentsRepository.findAll();
-    }
 
-    @Override
-    public Optional<Documents> getDocumentsById(int id) {
-        return DocumentsRepository.findById(id);
-    }
-
-    @Override
-    public User createDocument(Documents documents) {
-        return documentsRepository.save(documents);
-    }
-
-    @Override
-    public User updateDocuments(Documents documents) {
-        return userRepository.save(documents);
-    }
-
-    @Override
-    public void deleteDocuments(int id) {
-        documentsRepository.deleteById(id);
-    }*/
 }

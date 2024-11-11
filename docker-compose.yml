@@ -69,12 +69,35 @@ services:
       timeout: 10s
       start_period: 10s
 
-  companies:
+  company:
     build:
       context: .
     image: companies
     ports:
       - "8082:8082"
+    depends_on:
+      - mongo
+      - eureka
+    environment:
+      SPRING_APPLICATION_NAME: COMPANY
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/test
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka:8761/eureka/
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/actuator/health"]
+      interval: 30s
+      retries: 3
+      timeout: 10s
+      start_period: 10s
+
+  companies:
+    build:
+      context: .
+    image: companies
+    ports:
+      - "9090:9090"
     depends_on:
       - mongo
       - eureka
@@ -126,7 +149,7 @@ services:
       context: .
     image: document
     ports:
-      - "8084:8084"
+      - "8099:8099"
     depends_on:
       - mongo
       - eureka

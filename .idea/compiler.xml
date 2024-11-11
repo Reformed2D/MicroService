@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Getaway" />
         <module name="companies" />
+        <module name="Company" />
         <module name="defence" />
         <module name="document" />
         <module name="complaints" />
@@ -24,6 +25,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Company" options="-parameters" />
       <module name="Complaints" options="-parameters" />
       <module name="Eureka" options="-parameters" />
       <module name="Getaway" options="-parameters" />
